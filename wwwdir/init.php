@@ -59,6 +59,15 @@ require IPTV_INCLUDES_PATH . 'servers.php';
 require IPTV_INCLUDES_PATH . 'stream.php';
 require IPTV_ROOT_PATH . 'langs/English.php';
 
+function decrypt_config($data, $key) {
+    $i = 0;
+    $output = '';
+    foreach (str_split($data) as $char) {
+        $output.= chr(ord($char) ^ ord($key[$i++ % strlen($key)]));
+    }
+    return $output;
+}
+
 $_INFO = array();
 
 if (file_exists(IPTV_PANEL_DIR . 'config')) {
